@@ -32,7 +32,7 @@ function App() {
     const [algorithm, setAlgorithm] = useState<Algorithm>('HS')
     const [dictSize, setDictSize] = useState<number>(1)
     const [bufferSize, setBufferSize] = useState<number>(8)
-    const [result, setResult] = useState<null | any>(null)
+    const [result, setResult] = useState<null | string>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const [operation, setOperation] = useState<Operation>('compress')
     const [file, setFile] = useState<null | UploadFile>(null)
@@ -40,6 +40,8 @@ function App() {
     const run = async () => {
         if (!file || !file.originFileObj) return
         setLoading(true)
+        // wait to update to loading view
+        await new Promise(res => setTimeout(res, 100))
         try {
             const content: ArrayBuffer | null = await new Promise((res, rej) => {
                 const reader = new FileReader();
